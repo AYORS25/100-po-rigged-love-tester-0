@@ -1,0 +1,62 @@
+// Array of love texts to display randomly when the heart is full
+const loveTexts = [
+  "You're my one and only ❤️",
+  "Love at first sight 💖",
+  "Forever and always 💘",
+  "My heart beats for you 💓",
+  "You are my soulmate 💕",
+  "Together, we're unstoppable 👫",
+  "My love for you is endless 💝",
+  "You complete me ❤️",
+  "You are my everything 💞",
+  "True love never ends 💌"
+];
+
+function testLove() {
+  const name1 = document.getElementById('name1').value;
+  const name2 = document.getElementById('name2').value;
+  const heart = document.getElementById('heart');
+  const resultText = document.getElementById('result');
+  const heartContainer = document.querySelector('.heart-container');
+
+  // Remove any existing pink fill, if present
+  let existingFill = document.querySelector('.heart-fill');
+  if (existingFill) {
+    existingFill.remove();
+  }
+
+  // Create a new heart-fill div and add it for animation
+  const heartFill = document.createElement('div');
+  heartFill.classList.add('heart-fill');
+  heartContainer.appendChild(heartFill);
+
+  // Rigged to always show 100% compatibility
+  const compatibility = 100;
+
+  // Randomly select a love message from the array
+  const randomMessage = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+
+  // After the animation ends, display the percentage and message
+  setTimeout(() => {
+    // Change heart color to pink
+    heart.innerHTML = "❤️";
+
+    // Display the percentage inside the heart
+    const heartText = document.createElement("div");
+    heartText.innerHTML = `${compatibility}%`;
+    heartText.style.position = "absolute";
+    heartText.style.top = "30%";
+    heartText.style.left = "25%";
+    heartText.style.fontSize = "24px";
+    heartText.style.color = "white";
+    heartText.style.fontWeight = "bold";
+    heartText.style.zIndex = "10";
+    heartContainer.appendChild(heartText);
+
+    // Display the random love message below the heart
+    resultText.innerHTML = `
+      The love compatibility between ${name1} and ${name2} is ${compatibility}%!<br>
+      ${randomMessage}
+    `;
+  }, 2000); // After the heart is filled, show the percentage and message
+}
